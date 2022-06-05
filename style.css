@@ -36,8 +36,6 @@ body{
     border-top: white;
     border-radius: 6px;
     margin-bottom: 30px;
-    font-size: 64px;
-    font-weight: 1000px;
 }
 
 .row{
@@ -66,9 +64,23 @@ button{
 }
 #current{
     border-radius: 0px 6px 6px;
+    display: flex;
+    justify-content: right;
+    font-size: 48px;
+    font-weight: 1000px;
+    font-family: 'Courier New', Courier, monospace;
 }
 #last{
     border-radius: 6px 6px 0px;
     margin-bottom: -5px;
+    padding: 10px;
     border-top: solid black;
+    display: flex;
+    justify-content: right;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#clear{
+    background-color: rgb(214, 59, 59);
 }
