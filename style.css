@@ -57,6 +57,7 @@ button{
 
 .operation{
     align-self: flex-end;
+    background-color: rgba(94, 94, 245, 0.801);
 }
 .screen{
     height: 50px;
