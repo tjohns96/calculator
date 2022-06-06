@@ -42,15 +42,22 @@ function updateCurrDisplay() {
         gotAnswer = false;
     }
     if (firstOperand !== null && operation && currDisplay.textContent.length < 8) {
-        if (secondOperand === null && this.textContent.includes(".")) {
+        if ((secondOperand === null || secondOperand === "0") && this.textContent.includes(".")) {
             currDisplay.textContent = "0.";
             secondOperand = currDisplay.textContent;
+            return;
         }
         else if (secondOperand === "-" && this.textContent.includes(".")) {
             currDisplay.textContent = "-0.";
             secondOperand = currDisplay.textContent;
+            return;
         }
-        if (this.textContent === "." && secondOperand.includes(".")) {
+        else if (this.textContent === "." && secondOperand.includes(".")) {
+            return;
+        }
+        else if (currDisplay.textContent === "0") {
+            currDisplay.textContent = this.textContent;
+            secondOperand = currDisplay.textContent;
             return;
         }
         currDisplay.textContent += this.textContent;
@@ -84,7 +91,7 @@ function updateCurrDisplay() {
 }
 function updateOperation() {
     if (firstOperand === "ERROR") {
-        firstOperand = "0";
+        executeClear();
         currDisplay.textContent = "0";
         return;
     }
@@ -101,6 +108,12 @@ function updateOperation() {
     }
     if (firstOperand !== null && secondOperand !== null) {
         let answer = executeEval(operation, firstOperand, secondOperand);
+        if (answer === "ERROR") {
+            executeClear();
+            firstOperand = "ERROR";
+            currDisplay.textContent = 'ERROR';
+            return;
+        }
         firstOperand = answer;
         secondOperand = null;
     }
@@ -157,6 +170,9 @@ function divide(a, b) {
     return answer;
 }
 function executeEval(operation, firstOperand, secondOperand) {
+    if (secondOperand === "0" || secondOperand === "0." && operation === "/") {
+        return "ERROR";
+    }
     if (secondOperand === null) {
         if (firstOperand.charAt(firstOperand.length - 1) === ".") {
             firstOperand = firstOperand.slice(undefined, firstOperand.length - 1);
